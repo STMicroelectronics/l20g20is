@@ -5,7 +5,7 @@ Sensor driver for L20G20IS sensor written in C programming language. This reposi
 In order to `clone` the complete content of the repository folder, use the command:
 
 ```
-git clone https://github.com/STMicroelectronics/L20G20IS/
+git clone https://github.com/STMicroelectronics/L20G20IS-PID/
 ```
 
 Some examples of driver usage can be found [here](https://github.com/STMicroelectronics/STMems_Standard_C_drivers).
