@@ -46,11 +46,14 @@
   * @retval       interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t __weak l20g20is_read_reg(stmdev_ctx_t *ctx, uint8_t reg,
+int32_t __weak l20g20is_read_reg(const stmdev_ctx_t *ctx, uint8_t reg,
                                  uint8_t *data,
                                  uint16_t len)
 {
   int32_t ret;
+
+  if (ctx == NULL) return -1;
+
   ret = ctx->read_reg(ctx->handle, reg, data, len);
 
   return ret;
@@ -66,11 +69,14 @@ int32_t __weak l20g20is_read_reg(stmdev_ctx_t *ctx, uint8_t reg,
   * @retval       interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t __weak l20g20is_write_reg(stmdev_ctx_t *ctx, uint8_t reg,
+int32_t __weak l20g20is_write_reg(const stmdev_ctx_t *ctx, uint8_t reg,
                                   uint8_t *data,
                                   uint16_t len)
 {
   int32_t ret;
+
+  if (ctx == NULL) return -1;
+
   ret = ctx->write_reg(ctx->handle, reg, data, len);
 
   return ret;
@@ -124,7 +130,7 @@ float_t l20g20is_from_lsb_to_celsius(int16_t lsb)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_flag_data_ready_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_flag_data_ready_get(const stmdev_ctx_t *ctx,
                                         uint8_t *val)
 {
   l20g20is_data_status_ois_t data_status_ois;
@@ -144,7 +150,7 @@ int32_t l20g20is_gy_flag_data_ready_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_data_rate_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_data_rate_set(const stmdev_ctx_t *ctx,
                                   l20g20is_gy_data_rate_t val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -170,7 +176,7 @@ int32_t l20g20is_gy_data_rate_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_data_rate_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_data_rate_get(const stmdev_ctx_t *ctx,
                                   l20g20is_gy_data_rate_t *val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -210,7 +216,7 @@ int32_t l20g20is_gy_data_rate_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_orient_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_orient_set(const stmdev_ctx_t *ctx,
                                l20g20is_gy_orient_t val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -253,7 +259,7 @@ int32_t l20g20is_gy_orient_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_orient_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_orient_get(const stmdev_ctx_t *ctx,
                                l20g20is_gy_orient_t *val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -282,7 +288,7 @@ int32_t l20g20is_gy_orient_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_block_data_update_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t l20g20is_block_data_update_set(const stmdev_ctx_t *ctx, uint8_t val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
   int32_t ret;
@@ -307,7 +313,7 @@ int32_t l20g20is_block_data_update_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_block_data_update_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_block_data_update_get(const stmdev_ctx_t *ctx,
                                        uint8_t *val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -328,7 +334,7 @@ int32_t l20g20is_block_data_update_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_angular_rate_offset_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_angular_rate_offset_set(const stmdev_ctx_t *ctx,
                                          l20g20is_off_t val)
 {
   l20g20is_off_x_t off_x;
@@ -365,7 +371,7 @@ int32_t l20g20is_angular_rate_offset_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_angular_rate_offset_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_angular_rate_offset_get(const stmdev_ctx_t *ctx,
                                          l20g20is_off_t *val)
 {
   l20g20is_off_x_t off_x;
@@ -391,7 +397,7 @@ int32_t l20g20is_angular_rate_offset_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_full_scale_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_full_scale_set(const stmdev_ctx_t *ctx,
                                    l20g20is_gy_fs_t val)
 {
   l20g20is_ois_cfg_reg_t ois_cfg_reg;
@@ -417,7 +423,7 @@ int32_t l20g20is_gy_full_scale_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_full_scale_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_full_scale_get(const stmdev_ctx_t *ctx,
                                    l20g20is_gy_fs_t *val)
 {
   l20g20is_ois_cfg_reg_t ois_cfg_reg;
@@ -464,7 +470,7 @@ int32_t l20g20is_gy_full_scale_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_temperature_raw_get(stmdev_ctx_t *ctx, int16_t *val)
+int32_t l20g20is_temperature_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
 {
   uint8_t buff[2];
   int32_t ret;
@@ -484,7 +490,7 @@ int32_t l20g20is_temperature_raw_get(stmdev_ctx_t *ctx, int16_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_angular_rate_raw_get(stmdev_ctx_t *ctx, int16_t *val)
+int32_t l20g20is_angular_rate_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
 {
   uint8_t buff[4];
   int32_t ret;
@@ -517,7 +523,7 @@ int32_t l20g20is_angular_rate_raw_get(stmdev_ctx_t *ctx, int16_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
+int32_t l20g20is_dev_id_get(const stmdev_ctx_t *ctx, uint8_t *buff)
 {
   int32_t ret;
   ret = l20g20is_read_reg(ctx, L20G20IS_WHO_AM_I, buff, 1);
@@ -533,7 +539,7 @@ int32_t l20g20is_dev_id_get(stmdev_ctx_t *ctx, uint8_t *buff)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_status_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_dev_status_get(const stmdev_ctx_t *ctx,
                                 l20g20is_dev_status_t *val)
 {
   l20g20is_data_status_ois_t data_status_ois;
@@ -553,7 +559,7 @@ int32_t l20g20is_dev_status_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_data_format_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_dev_data_format_set(const stmdev_ctx_t *ctx,
                                      l20g20is_ble_t val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -579,7 +585,7 @@ int32_t l20g20is_dev_data_format_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_data_format_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_dev_data_format_get(const stmdev_ctx_t *ctx,
                                      l20g20is_ble_t *val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -613,7 +619,7 @@ int32_t l20g20is_dev_data_format_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_boot_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t l20g20is_dev_boot_set(const stmdev_ctx_t *ctx, uint8_t val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
   int32_t ret;
@@ -638,7 +644,7 @@ int32_t l20g20is_dev_boot_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t l20g20is_dev_boot_get(const stmdev_ctx_t *ctx, uint8_t *val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
   int32_t ret;
@@ -657,7 +663,7 @@ int32_t l20g20is_dev_boot_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_reset_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t l20g20is_dev_reset_set(const stmdev_ctx_t *ctx, uint8_t val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
   int32_t ret;
@@ -683,7 +689,7 @@ int32_t l20g20is_dev_reset_set(stmdev_ctx_t *ctx, uint8_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_dev_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
+int32_t l20g20is_dev_reset_get(const stmdev_ctx_t *ctx, uint8_t *val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
   int32_t ret;
@@ -715,7 +721,7 @@ int32_t l20g20is_dev_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_filter_hp_bandwidth_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_filter_hp_bandwidth_set(const stmdev_ctx_t *ctx,
                                             l20g20is_gy_hp_bw_t val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
@@ -755,7 +761,7 @@ int32_t l20g20is_gy_filter_hp_bandwidth_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_filter_hp_bandwidth_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_filter_hp_bandwidth_get(const stmdev_ctx_t *ctx,
                                             l20g20is_gy_hp_bw_t *val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
@@ -808,7 +814,7 @@ int32_t l20g20is_gy_filter_hp_bandwidth_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_filter_hp_reset_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_filter_hp_reset_set(const stmdev_ctx_t *ctx,
                                         uint8_t val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
@@ -834,7 +840,7 @@ int32_t l20g20is_gy_filter_hp_reset_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_filter_hp_reset_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_filter_hp_reset_get(const stmdev_ctx_t *ctx,
                                         uint8_t *val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
@@ -854,7 +860,7 @@ int32_t l20g20is_gy_filter_hp_reset_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_filter_lp_bandwidth_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_filter_lp_bandwidth_set(const stmdev_ctx_t *ctx,
                                             l20g20is_gy_lp_bw_t val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
@@ -894,7 +900,7 @@ int32_t l20g20is_gy_filter_lp_bandwidth_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_filter_lp_bandwidth_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_filter_lp_bandwidth_get(const stmdev_ctx_t *ctx,
                                             l20g20is_gy_lp_bw_t *val)
 {
   l20g20is_ctrl2_ois_t ctrl2_ois;
@@ -960,7 +966,7 @@ int32_t l20g20is_gy_filter_lp_bandwidth_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_spi_mode_set(stmdev_ctx_t *ctx, l20g20is_sim_t val)
+int32_t l20g20is_spi_mode_set(const stmdev_ctx_t *ctx, l20g20is_sim_t val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
   int32_t ret;
@@ -985,7 +991,7 @@ int32_t l20g20is_spi_mode_set(stmdev_ctx_t *ctx, l20g20is_sim_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_spi_mode_get(stmdev_ctx_t *ctx, l20g20is_sim_t *val)
+int32_t l20g20is_spi_mode_get(const stmdev_ctx_t *ctx, l20g20is_sim_t *val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
   int32_t ret;
@@ -1031,7 +1037,7 @@ int32_t l20g20is_spi_mode_get(stmdev_ctx_t *ctx, l20g20is_sim_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_notification_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_pin_notification_set(const stmdev_ctx_t *ctx,
                                       l20g20is_lir_t val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -1057,7 +1063,7 @@ int32_t l20g20is_pin_notification_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_notification_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_pin_notification_get(const stmdev_ctx_t *ctx,
                                       l20g20is_lir_t *val)
 {
   l20g20is_ctrl1_ois_t ctrl1_ois;
@@ -1091,7 +1097,7 @@ int32_t l20g20is_pin_notification_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_polarity_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_pin_polarity_set(const stmdev_ctx_t *ctx,
                                   l20g20is_pin_pol_t val)
 {
   l20g20is_ctrl3_ois_t ctrl3_ois;
@@ -1117,7 +1123,7 @@ int32_t l20g20is_pin_polarity_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_polarity_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_pin_polarity_get(const stmdev_ctx_t *ctx,
                                   l20g20is_pin_pol_t *val)
 {
   l20g20is_ctrl3_ois_t ctrl3_ois;
@@ -1151,7 +1157,7 @@ int32_t l20g20is_pin_polarity_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_mode_set(stmdev_ctx_t *ctx, l20g20is_pp_od_t val)
+int32_t l20g20is_pin_mode_set(const stmdev_ctx_t *ctx, l20g20is_pp_od_t val)
 {
   l20g20is_ctrl4_ois_t ctrl4_ois;
   int32_t ret;
@@ -1176,7 +1182,7 @@ int32_t l20g20is_pin_mode_set(stmdev_ctx_t *ctx, l20g20is_pp_od_t val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_mode_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_pin_mode_get(const stmdev_ctx_t *ctx,
                               l20g20is_pp_od_t *val)
 {
   l20g20is_ctrl4_ois_t ctrl4_ois;
@@ -1211,7 +1217,7 @@ int32_t l20g20is_pin_mode_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_drdy_route_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_pin_drdy_route_set(const stmdev_ctx_t *ctx,
                                     l20g20is_pin_drdy_route_t val)
 {
   l20g20is_ctrl4_ois_t ctrl4_ois;
@@ -1239,7 +1245,7 @@ int32_t l20g20is_pin_drdy_route_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_pin_drdy_route_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_pin_drdy_route_get(const stmdev_ctx_t *ctx,
                                     l20g20is_pin_drdy_route_t *val)
 {
   l20g20is_ctrl4_ois_t ctrl4_ois;
@@ -1273,7 +1279,7 @@ int32_t l20g20is_pin_drdy_route_get(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_self_test_set(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_self_test_set(const stmdev_ctx_t *ctx,
                                   l20g20is_gy_self_test_t val)
 {
   l20g20is_ctrl3_ois_t ctrl3_ois;
@@ -1300,7 +1306,7 @@ int32_t l20g20is_gy_self_test_set(stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t l20g20is_gy_self_test_get(stmdev_ctx_t *ctx,
+int32_t l20g20is_gy_self_test_get(const stmdev_ctx_t *ctx,
                                   l20g20is_gy_self_test_t *val)
 {
   l20g20is_ctrl3_ois_t ctrl3_ois;
